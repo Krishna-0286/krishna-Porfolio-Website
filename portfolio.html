@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Kumar | Data Science Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- 1. MODERN THEME CONFIGURATION --- */
+        :root {
+            --bg-primary: #0f172a;      
+            --bg-secondary: #1e293b;    
+            --accent: #38bdf8;          
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --card-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section-padding { padding: 100px 0; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at top right, #1e3a8a 0%, transparent 40%);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .typewriter-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: var(--accent);
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .profile-img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 40px var(--accent-glow);
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40%/50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition);
+            margin-right: 15px;
+        }
+
+        .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+
+        /* --- EDUCATION TIMELINE --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 2px; background: var(--bg-secondary); top: 0; bottom: 0; left: 20px; }
+        .timeline-item { padding: 10px 40px; position: relative; width: 100%; }
+        .timeline-item::after { content: ''; position: absolute; width: 16px; height: 16px; left: 13px; top: 15px; background: var(--accent); border-radius: 50%; z-index: 1; box-shadow: 0 0 10px var(--accent-glow); }
+
+        /* --- CARDS & GRIDS --- */
+        .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+        .section-title { font-size: 2.5rem; margin-bottom: 40px; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; left: 0; bottom: -10px; width: 60px; height: 4px; background: var(--accent); }
+
+        .info-card {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: var(--card-radius);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+            transition: var(--transition);
+        }
+        .info-card:hover { transform: translateY(-5px); border-color: #fff; }
+
+        .hobbies-wrapper { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; }
+        .hobby-tag { background: rgba(255, 255, 255, 0.05); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+        .skill-item { background: var(--bg-secondary); padding: 20px; text-align: center; border-radius: 12px; transition: var(--transition); }
+        .skill-item:hover { background: var(--accent); color: var(--bg-primary); transform: translateY(-5px); }
+        .skill-item i { font-size: 2rem; margin-bottom: 10px; display: block; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .project-card { background: var(--bg-secondary); border-radius: var(--card-radius); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.05); transition: var(--transition); }
+        .project-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .project-img { width: 100%; height: 200px; object-fit: cover; }
+        .project-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-tech { color: var(--accent); font-size: 0.8rem; font-weight: 700; margin-bottom: 10px; }
+
+        .project-btn-group { margin-top: auto; display: flex; gap: 10px; padding-top: 20px; }
+        .p-btn { flex: 1; padding: 10px; text-align: center; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+        .p-btn-live { background: var(--accent); color: var(--bg-primary); }
+        .p-btn-code { border: 1px solid var(--text-muted); color: var(--text-main); }
+
+        footer { background: var(--bg-secondary); text-align: center; padding: 50px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        @media (max-width: 768px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-img-box { order: -1; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text reveal">
+                <h2>Hello, I am</h2>
+                <h1 id="nameDisplay">Krishna Kumar</h1>
+                <h3 style="font-size: 1.5rem; margin-bottom: 20px;">I am a <span class="typewriter-text" id="typingEffect"></span></h3>
+                <p class="hero-p" id="bioDisplay">
+                    A passionate Data Science student eager to uncover insights from data. 
+                    Looking for internship opportunities to apply my skills in Machine Learning and Analytics.
+                </p>
+                <div>
+                    <a href="#projects" class="btn">View My Work</a>
+                     <a href="mailto:krishnakumar995088@gmail.com?subject=Resume Request" class="btn">Request Resume</a>
+                </div>
+            </div>
+            <div class="hero-img-box reveal">
+                <img src="krishna_re.jpg" alt="Krishna Kumar" class="profile-img" id="myPhoto" onerror="this.src='https://placehold.co/400x400/1e293b/38bdf8?text=Krishna'">
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding container">
+        <h2 class="section-title reveal">About Me</h2>
+        <div class="about-grid">
+            <div class="reveal">
+                <div class="info-card">
+                    <h3><i class="fas fa-user-graduate"></i> My Background</h3>
+                    <p style="margin-top: 15px; color: var(--text-muted); line-height: 1.8;" id="backgroundText">
+                        I am currently pursuing my degree in MNNIT Allahabad. I come from a background where curiosity drives everything. 
+                        I started coding with Python and fell in love with how data can predict the future. 
+                        I am a fast learner, a team player, and someone who doesn't give up until the bug is fixed.
+                        I enjoy working with data, asking the right questions, and breaking complex problems into smaller, logical steps. I believe learning by building is the best way to grow, and I actively apply this approach in my projects.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-bullseye"></i> My Goal</h3>
+                    <p style="margin-top: 15px; color: var(--text-muted);">
+                        To secure a challenging internship where I can contribute to real-world ML projects while learning from experienced seniors.
+                    </p>
+                </div>
+            </div>
+            <div class="reveal">
+                <div class="info-card">
+                    <h3><i class="fas fa-heart"></i> Hobbies & Interests</h3>
+                    <div class="hobbies-wrapper" id="hobbiesList"></div>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-envelope"></i> Contact</h3>
+                    <p style="margin-top:10px; color: var(--text-muted);">krishnakumar995088@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding container">
+        <h2 class="section-title reveal">Connect With Me</h2>
+        <div class="projects-grid" id="profileGrid">
+            </div>
+    </section>
+
+    <section class="section-padding container">
+        <h2 class="section-title reveal">Education Journey</h2>
+        <div class="timeline" id="educationTimeline"></div>
+    </section>
+
+    <section class="section-padding" style="background: #0b1120;">
+        <div class="container">
+            <h2 class="section-title reveal">Technical Arsenal</h2>
+            <div class="skills-grid reveal" id="skillsGrid"></div>
+        </div>
+    </section>
+
+    <section id="projects" class="section-padding container">
+        <h2 class="section-title reveal">Featured Projects</h2>
+        <div class="projects-grid" id="projectGrid"></div>
+    </section>
+
+    <section class="section-padding container">
+        <h2 class="section-title reveal">Certifications</h2>
+        <div class="projects-grid" id="certGrid"></div>
+    </section>
+
+    <footer>
+        <p>Built by Krishna Kumar © 2026</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Open to Internship Opportunities</p>
+    </footer>
+
+    <script>
+        const personalData = {
+            name: "Krishna Kumar",
+            roles: ["Data Science Student", "ML Enthusiast", "Python Developer"],
+            resumeUrl: "https://drive.google.com/file/d/1ut-uB6ufaBPjUfPFQiO_uM97GttGe1aC/view?usp=sharing",
+            
+            // PROFILES DATA
+            profiles: [
+                { name: "LinkedIn", icon: "fab fa-linkedin", link: "https://www.linkedin.com/in/krishna-k-361225277/", color: "#0077b5" },
+                { name: "GitHub", icon: "fab fa-github", link: "https://github.com/Krishna-0286", color: "#333" },
+                { name: "LeetCode", icon: "fas fa-code", link: "https://leetcode.com/u/Krishna-0286", color: "#ffa116" },
+                { name: "HackerRank", icon: "fas fa-trophy", link: "https://www.hackerrank.com/profile/kumarkrishna9951", color: "#2ec866" }
+            ],
+
+            background: `I am currently pursuing my degree in MNNIT Allahabad. I come from a background where curiosity drives everything. I started coding with Python and fell in love with how data can predict the future. I am a fast learner, a team player, and someone who doesn't give up until the bug is fixed. I enjoy working with data, asking the right questions, and breaking complex problems into smaller, logical steps. I believe learning by building is the best way to grow, and I actively apply this approach in my projects.`,
+            
+            education: [
+                {
+                    institution: "MNNIT Allahabad",
+                    degree: "Pursuing B.Tech",
+                    duration: "2023 - 2027",
+                    description: "Focused on Engineering and Data Science fundamentals. Actively participating in technical workshops and projects."
+                },
+                {
+                    institution: "Intermediate (12th)",
+                    degree: "Percentage: 96%", // Example Score
+                    duration: "2022",
+                    description: "Major in PCM (Physics, Chemistry, Mathematics). Developed strong analytical and logical reasoning skills."
+                },
+                {
+                    institution: "High School (10th)",
+                    degree: "Percentage: 89.83%", // Example Score
+                    duration: "2020",
+                    description: "Completed with high distinction. Foundational interest in Mathematics and Problem Solving."
+                }
+            ],
+
+            hobbies: [
+                { icon: "fas fa-baseball-bat-ball", name: "Playing Cricket" },
+                { icon: "fas fa-chalkboard-user", name: "Teaching" },
+                { icon: "fas fa-plane", name: "Traveling" },
+                { icon: "fas fa-code", name: "Competitive Coding" }
+            ],
+            certifications: [
+                { name: "SQL Certificate", issuer: " HackerRank", date: "2025", link: "https://www.hackerrank.com/certificates/iframe/077ece09b98d" },
+                { name: " Data Science", issuer: "UDEMY", date: "2025", link: "#" }
+            ]
+        };
+
+        const skills = [
+            { name: "Python", icon: "fab fa-python" },
+            { name: "Pandas/Numpy", icon: "fas fa-table" },
+            { name: "Machine Learning", icon: "fas fa-brain" },
+            { name: "SQL", icon: "fas fa-database" },
+            { name: "Data Viz", icon: "fas fa-chart-bar" },
+            { name: "Git/GitHub", icon: "fab fa-github" },
+            { name: "Scikit-Learn", icon: "fas fa-microchip" },
+            { name: "Artificial Intelligence", icon: "fas fa-robot" },
+            { name: "Deep Learning", icon: "fas fa-network-wired" },
+            { name: "AWS", icon: "fab fa-aws" },
+            { name: "Streamlit", icon: "fas fa-rocket" },
+            { name: "Power BI", icon: "fas fa-chart-pie" },
+            { name: "Excel", icon: "fas fa-file-excel" }
+        ];
+
+        const projects = [
+            {
+                title: "Financial Fraud Detection System- ML Project",
+                tech: "Python, Scikit-Learn, Seaborn, Matplotlib, Streamlit, NumPy",
+                desc: `Analyzed 6.3M+ financial transactions to predict fraudulent activity and identify high-risk patterns using machine learning. To develop a high-precision security solution that identifies fraudulent bank transfers in real-time, reducing financial loss through proactive anomaly detection. Used Feature Engineering to improve model accuracy to 95% and ROC_AUC score 98%.`,
+                image: "https://placehold.co/600x400/1e293b/38bdf8?text=Fraud+Detection+Project",
+                liveLink: "https://transaction-security-scanner-ml-ltfmcydbpqnjws5y95oide.streamlit.app/", 
+                codeLink: "https://github.com/krishna-0286/transaction-security-scanner-ml/blob/main/app.py"
+            },
+            {
+                title: "TalentScout- AI Recruitment Bot",
+                tech: "Python, Streamlit, Groq API (Llama 3, Whisper), Git/GitHub.",
+                desc: `Built a full-stack AI application to streamline the recruitment process by conducting initial technical screens. Engineered a context-aware logic engine using Llama 3 (via Groq Cloud) to analyze candidate profiles and autonomously generate relevant technical assessment questions based on their specific tech stack.`,
+                image: "https://placehold.co/600x400/1e293b/38bdf8?text=AI+Recruitment+Bot",
+                liveLink: "https://talentscout-hiring-bot-bvtjjgzmj5qhjspxbq8lhm.streamlit.app/", 
+                codeLink: "https://github.com/krishna-0286/talentscout-hiring-bot/blob/main/app.py"
+            }
+        ];
+
+        // RENDER LOGIC
+        document.getElementById('nameDisplay').innerText = personalData.name;
+        document.getElementById('backgroundText').innerText = personalData.background;
+        <!-- document.getElementById('resumeLink').href = personalData.resumeUrl; -->
+
+        // Render Hobbies
+        personalData.hobbies.forEach(h => {
+            document.getElementById('hobbiesList').innerHTML += `<div class="hobby-tag"><i class="${h.icon}"></i> ${h.name}</div>`;
+        });
+
+        // Render Professional Profiles (The moving icon cards)
+        personalData.profiles.forEach(p => {
+            document.getElementById('profileGrid').innerHTML += `
+                <a href="${p.link}" target="_blank" style="text-decoration: none;">
+                    <div class="info-card reveal" style="text-align: center; border-left: none; border-bottom: 4px solid ${p.color};">
+                        <i class="${p.icon}" style="font-size: 3rem; color: ${p.color}; margin-bottom: 15px;"></i>
+                        <h3 style="color: var(--text-main);">${p.name}</h3>
+                        <p style="color: var(--accent); font-size: 0.8rem; margin-top: 5px;">View Profile →</p>
+                    </div>
+                </a>`;
+        });
+
+        // Render Education
+        personalData.education.forEach(edu => {
+            document.getElementById('educationTimeline').innerHTML += `
+                <div class="timeline-item reveal">
+                    <h4 style="color: var(--accent); font-size: 0.85rem; font-weight: 700;">${edu.duration}</h4>
+                    <h3 style="margin: 5px 0;">${edu.institution}</h3>
+                    <p style="color: var(--text-main); font-weight: 600; font-size: 0.95rem;">${edu.degree}</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">${edu.description}</p>
+                </div>`;
+        });
+
+        // Render Skills
+        skills.forEach(s => {
+            document.getElementById('skillsGrid').innerHTML += `<div class="skill-item"><i class="${s.icon}"></i><span>${s.name}</span></div>`;
+        });
+
+        // Render Projects
+        projects.forEach(p => {
+            document.getElementById('projectGrid').innerHTML += `
+                <div class="project-card reveal">
+                    <img src="${p.image}" class="project-img">
+                    <div class="project-content">
+                        <div class="project-tech">${p.tech}</div>
+                        <h3>${p.title}</h3>
+                        <p style="color:var(--text-muted); font-size:0.95rem; margin-top:10px;">${p.desc}</p>
+                        <div class="project-btn-group">
+                            <a href="${p.liveLink}" target="_blank" class="p-btn p-btn-live">Live Demo</a>
+                            <a href="${p.codeLink}" target="_blank" class="p-btn p-btn-code">Code</a>
+                        </div>
+                    </div>
+                </div>`;
+        });
+
+        // Render Certs
+        personalData.certifications.forEach(c => {
+            document.getElementById('certGrid').innerHTML += `
+                <div class="info-card reveal" style="margin-bottom: 0;">
+                    <h4 style="color: var(--accent); font-size: 0.8rem;">${c.issuer}</h4>
+                    <h3 style="margin: 5px 0;">${c.name}</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Issued: ${c.date}</p>
+                    <a href="${c.link}" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.85rem; margin-top: 5px; display: inline-block;">View Certificate →</a>
+                </div>`;
+        });
+
+        // Typewriter Effect
+        let tIdx = 0, cIdx = 0, isDel = false;
+        function type() {
+            const role = personalData.roles[tIdx];
+            document.getElementById('typingEffect').innerText = isDel ? role.substring(0, cIdx--) : role.substring(0, cIdx++);
+            if (!isDel && cIdx > role.length) { isDel = true; setTimeout(type, 2000); }
+            else if (isDel && cIdx < 0) { isDel = false; tIdx = (tIdx + 1) % personalData.roles.length; setTimeout(type, 500); }
+            else setTimeout(type, isDel ? 50 : 100);
+        }
+        type();
+
+        // Reveal Animation
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+            });
+        });
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
