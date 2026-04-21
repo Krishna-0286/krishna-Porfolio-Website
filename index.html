@@ -219,6 +219,11 @@
             </div>
     </section>
 
+    <section class="section-padding container" style="background: #0b1120; border-radius: 20px; padding-left: 40px; padding-right: 40px; margin-bottom: 50px;">
+        <h2 class="section-title reveal">Experience</h2>
+        <div class="timeline" id="experienceTimeline"></div>
+    </section>
+
     <section class="section-padding container">
         <h2 class="section-title reveal">Education Journey</h2>
         <div class="timeline" id="educationTimeline"></div>
@@ -262,6 +267,21 @@
 
             background: `I am currently pursuing my degree in MNNIT Allahabad. I come from a background where curiosity drives everything. I started coding with Python and fell in love with how data can predict the future. I am a fast learner, a team player, and someone who doesn't give up until the bug is fixed. I enjoy working with data, asking the right questions, and breaking complex problems into smaller, logical steps. I believe learning by building is the best way to grow, and I actively apply this approach in my projects.`,
             
+            // NEW EXPERIENCE DATA
+            experience: [
+                {
+                    role: "Undergraduate Research Assistant (Machine Learning)",
+                    duration: "Dec 2025 – Jan 2026",
+                    organization: "Motilal Nehru National Institute of Technology (MNNIT)",
+                    supervisor: "Under Prof. Dr. Anand Mohan Varma | Prayagraj, India",
+                    points: [
+                        "Collaborating directly with faculty to develop and deploy predictive machine learning models using Python, Scikit-learn, and Pandas for Guava Biomass Prediction.",
+                        "Executing comprehensive data preprocessing, feature engineering, and cross-validation techniques to ensure model robustness and high predictive accuracy.",
+                        "Awarded a formal certificate of excellence for outstanding contributions and technical execution during the initial one-month intensive phase of the research project."
+                    ]
+                }
+            ],
+
             education: [
                 {
                     institution: "MNNIT Allahabad",
@@ -349,6 +369,7 @@
         // RENDER LOGIC
         document.getElementById('nameDisplay').innerText = personalData.name;
         document.getElementById('backgroundText').innerText = personalData.background;
+        
         // Render Hobbies
         personalData.hobbies.forEach(h => {
             document.getElementById('hobbiesList').innerHTML += `<div class="hobby-tag"><i class="${h.icon}"></i> ${h.name}</div>`;
@@ -364,6 +385,21 @@
                         <p style="color: var(--accent); font-size: 0.8rem; margin-top: 5px;">View Profile →</p>
                     </div>
                 </a>`;
+        });
+
+        // RENDER EXPERIENCE
+        personalData.experience.forEach(exp => {
+            let pointsHtml = exp.points.map(point => `<li style="margin-bottom: 8px; line-height: 1.5;">${point}</li>`).join('');
+            document.getElementById('experienceTimeline').innerHTML += `
+                <div class="timeline-item reveal">
+                    <h4 style="color: var(--accent); font-size: 0.85rem; font-weight: 700;">${exp.duration}</h4>
+                    <h3 style="margin: 5px 0;">${exp.role}</h3>
+                    <p style="color: var(--text-main); font-weight: 600; font-size: 0.95rem;">${exp.organization}</p>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; font-style: italic; margin-bottom: 15px;">${exp.supervisor}</p>
+                    <ul style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px; padding-left: 20px;">
+                        ${pointsHtml}
+                    </ul>
+                </div>`;
         });
 
         // Render Education
